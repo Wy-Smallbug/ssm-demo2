@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+
+<table>
+    <tr>
+        <th colspan="5">人员信息</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>姓名</td>
+        <td>年龄</td>
+        <td>性别</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="person,status : ${page.list}">
+        <td th:text="${status.count}"></td>
+<!--        <td th:text="${person.id}"></td>-->
+        <td th:text="${person.pName}"></td>
+        <td th:text="${person.age}"></td>
+        <td th:text="${person.sex}"></td>
+        <td>
+            <form th:action="@{/jumpToUpdate}" method="post">
+                <input type="hidden" name="id" th:value="${person.id}">
+                <input type="hidden" name="pageNum" th:value="${page.pageNum}">
+                <input type="submit" value="修改">
+            </form>
+            <form th:action="@{/getAllPerson}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="id" th:value="${person.id}">
+                <input type="hidden" name="pageNum" th:value="${page.pageNum}">
+                <input type="submit" value="删除">
+            </form>
+        </td>
+    </tr>
+</table>
+<div style="text-align: center">
+    <a th:if="${page.hasPreviousPage}" th:href="@{/getAllPerson/1}">首页</a>
+    <a th:if="${page.hasPreviousPage}" th:href="@{'/getAllPerson/'+${page.prePage}}">上一页</a>
+    <span th:each="num : ${page.navigatepageNums}">
+    <a th:if="${num == page.pageNum}" style="color: red" th:href="@{'/getAllPerson/'+${num}}" th:text="'['+${num}+']'"></a>
+    <a th:if="${num != page.pageNum}" th:href="@{'/getAllPerson/'+${num}}" th:text="${num}"></a>
+    </span>
+    <a th:if="${page.hasNextPage}" th:href="@{'/getAllPerson/'+${page.nextPage}}">下一页</a>
+    <a th:if="${page.hasNextPage}" th:href="@{'/getAllPerson/'+${page.pages}}">末页</a>
+    <span>总共为</span><span th:text="${page.pages}"></span><span>页，当前为第</span><span th:text="${page.pageNum}"></span><span>页</span>
+    <form th:action="@{/addPerson}" method="get">
+        <input type="hidden" name="pages" th:value="${page.pages}">
+        <input type="submit" value="新增人员">
+    </form>
+</div>
+</body>
+</html>

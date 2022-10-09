@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/getAllPerson}" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="pageNum" th:value="${pageNum}">
+    <input type="hidden" name="id" th:value="${person.id}">
+    <table>
+        <tr>
+            <td>
+                姓名：<input type="text" name="pName" th:value="${person.pName}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                年龄：<input type="text" name="age" th:value="${person.age}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                性别：<input type="text" name="sex" th:value="${person.sex}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="确认修改">
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+
+</body>
+</html>

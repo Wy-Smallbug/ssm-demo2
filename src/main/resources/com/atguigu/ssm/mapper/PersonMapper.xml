@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.ssm.mapper.PersonMapper">
+
+    <!--
+       查询功能的标签必须设置resultType或者resultMap
+       resultType:设置默认映射关系
+       resultMap：设置自定义映射关系
+-->
+    <select id="getPersonById" resultType="Person">
+        select * from person where id = #{id}
+    </select>
+<!--    getAllPerson()-->
+    <select id="getAllPerson" resultType="Person">
+        select * from person
+    </select>
+    <delete id="deleteByid" >
+        delete from person where id = #{id}
+    </delete>
+    <update id="update">
+        update person set p_name=#{pName},
+                          age = #{age},
+                          sex = #{sex} where id = #{id}
+    </update>
+    <insert id="addPerson" >
+        insert into person(p_name,age,sex) value (#{pName},#{age},#{sex})
+    </insert>
+</mapper>
